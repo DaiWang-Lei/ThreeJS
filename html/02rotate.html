@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="http://www.yanhuangxueyuan.com/versions/threejsR92/build/three.js"></script>
+    <script src="../js/three.js"></script>
 </head>
+
 <body>
     <script>
         /**
@@ -18,7 +20,7 @@
         // var geometry = new THREE.SphereGeometry(60, 40, 40); //创建一个球体几何对象
         var geometry = new THREE.BoxGeometry(100, 100, 100); //创建一个立方体几何对象Geometry
         var material = new THREE.MeshLambertMaterial({
-          color: 0x0000ff
+            color: 0x13211122
         }); //材质对象Material
         var mesh = new THREE.Mesh(geometry, material); //网格模型对象Mesh
         scene.add(mesh); //网格模型添加到场景中
@@ -50,10 +52,20 @@
          */
         var renderer = new THREE.WebGLRenderer();
         renderer.setSize(width, height);//设置渲染区域尺寸
-        renderer.setClearColor(0xb9d3ff, 1); //设置背景颜色
+        renderer.setClearColor(0xfffff1, -1); //设置背景颜色
         document.body.appendChild(renderer.domElement); //body元素中插入canvas对象
         //执行渲染操作   指定场景、相机作为参数
-        renderer.render(scene, camera);
-      </script>
+        let T0 = new Date();//上次时间
+        function render() {
+            let T1 = new Date();//本次时间
+            let t = T1 - T0;//时间差
+            T0 = T1;//把本次时间赋值给上次时间
+            requestAnimationFrame(render);
+            renderer.render(scene, camera);//执行渲染操作
+            mesh.rotateY(0.001 * t);//旋转角速度0.001弧度每毫秒
+        }
+        render();
+    </script>
 </body>
+
 </html>
