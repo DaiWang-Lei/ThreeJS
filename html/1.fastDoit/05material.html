@@ -5,12 +5,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="../js/three.js"></script>
-    <script src="../js/OrbitControls.js"></script>
+    <script src="../../js/three.js"></script>
+    <script src="../../js/OrbitControls.js"></script>
 </head>
 
 <body>
     <script>
+
+
+        // 四种材质
+        // MeshBasicMaterial 基础网格材质，不受光照影响的材质
+        // MeshLambertMaterial	Lambert网格材质，与光照有反应，漫反射
+        // MeshPhongMaterial 高光Phong材质，与光照有反应
+        // MeshStandardMaterial RBP物理材质，相比较高光Phong材质，可以更好的模拟金属、玻璃等效果
         /**
          * 创建场景对象Scene
          */
@@ -28,9 +35,18 @@
 
         // 球体网格模型
         var geometry2 = new THREE.SphereGeometry(60, 40, 40);
-        var material2 = new THREE.MeshLambertMaterial({
-            color: 0xff00ff
-        });
+        //    漫反射效果 MeshLambertMaterial
+        // var material2 = new THREE.MeshLambertMaterial({
+        //     color: 0x0000ff,
+        //     opacity:0.7,//透明度
+        //     transparent:true//是否开启透明，
+        // });//材质对象
+        //镜面反射效果 MeshPhongMaterial
+        var material2 = new THREE.MeshPhongMaterial({
+            color: 0x0000ff,
+            specular: 0x4488ee, //高光颜色
+            shininess: 12   //光照强度
+        });//材质对象
         var mesh2 = new THREE.Mesh(geometry2, material2); //网格模型对象Mesh
         mesh2.translateY(120); //球体网格模型沿Y轴正方向平移120
         scene.add(mesh2);
